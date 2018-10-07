@@ -60,34 +60,6 @@ class SignUpViewController: UIViewController {
         }
     }
 
+  
     
-    @IBAction func onLogin(_ sender: Any) {
-        
-        let username = usernameField.text ?? ""
-        let password = passwordField.text ?? ""
-        
-        
-        PFUser.logInWithUsername(inBackground: username, password: password) { (user:PFUser?, error: Error?) in
-            
-            if let error = error{
-                print("User log in failed: \(error.localizedDescription)")
-                self.createAlert(title: "Wrong Credentials", message : "Try Again with Correct Credentials")
-            }else{
-                print("User logged in successfully")
-                self.performSegue(withIdentifier : "LoginSegue", sender : nil)
-            }
-            
-            }
-        
-    }
-    
-    func createAlert(title : String, message : String){
-        let Alert = UIAlertController(title : title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        Alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action) in
-            Alert.dismiss(animated: true, completion: nil)}))
-        self.present(Alert, animated: true, completion:nil)
-        
-    }
-    
-
 }

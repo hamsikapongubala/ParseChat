@@ -38,15 +38,30 @@ class LoginViewController: UIViewController {
         let username = usernameLabel.text ?? ""
         let password = passwordLabel.text ?? ""
         
-        PFUser.logInWithUsername(inBackground: username, password: password) { (user: PFUser?, error: Error?) in
+        
+        PFUser.logInWithUsername(inBackground: username, password: password) { (user:PFUser?, error: Error?) in
+            
             if let error = error {
-                print("User log in failed: \(error.localizedDescription)")
-            } else {
+                //print("User log in failed: \(error?.localizedDescription)")
+                self.createAlert(title: "Error", message : "\(error.localizedDescription)")
+            }else{
                 print("User logged in successfully")
-                // display view controller that needs to shown after successful login
+                self.performSegue(withIdentifier : "loginSegue", sender : nil)
             }
+            
+            
         }
+        
     }
+    
+    func createAlert(title : String, message : String){
+        let Alert = UIAlertController(title : title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        Alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action) in
+            Alert.dismiss(animated: true, completion: nil)}))
+        self.present(Alert, animated: true, completion:nil)
+        
+    }
+    
 
 
 }
